@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Prets{% endblock %}
+
+{% block body %}
+    <div class="row mb-3 mt-4 pl-3 pr-3">
+        <div class="col-md border border-secondary bg-white border-info">
+            <h5 class="mt-3"><span class="text-secondary">Stagiaire :</span> {{ pret.stagiaire.nom | upper }} {{ pret.stagiaire.prenom }}</h5>
+            <h5 class="mt-3"><span class="text-secondary">Adresse :</span> {{ pret.stagiaire.adresse }}</h5>
+            <h5 class="mt-3"><span class="text-secondary">Email :</span> {{ pret.stagiaire.email }}</h5>
+            <h5 class="mt-3"><span class="text-secondary">Tél :</span> {{ pret.stagiaire.telephone }}</h5>
+        </div>
+        <div class="col-md border border-secondary bg-white border-info">
+            <h5 class="mt-3"><span class="text-secondary">Campus :</span> {{ pret.stagiaire.campus }}</h5>
+            <div class="row">
+                <h5 class="mt-3 col-sm"><span class="text-secondary">Début :</span> {{ pret.dateDebut ? pret.dateDebut | date('d/m/Y') : '' }}</h5>
+                <h5 class="mt-3 col-sm"><span class="text-secondary">Rendu le :</span> {{ pret.dateDebut ? pret.dateDebut | date('d/m/Y') : 'En cours' }}</h5>
+            </div>
+            <div class="row col-sm">
+                <h5 class="mt-3 text-secondary">Observation :</h5> <p class="mt-3 pl-2 text-success">{{ pret.commentaireFin }}</p>
+            </div>
+        </div>
+    </div>
+    <h4 class="text-center mt-2 mb-2 text-primary">Articles prêtés</h4>
+    <table id="table1" class="table table-sm table-striped table-bordered display responsive nowrap mb-3 mt-4" style="width:100%">
+        <thead>
+        <tr class="bg-primary text-light">
+            <th class="bg-light text-primary">#</th>
+            <th>N° Identifiant</th>
+            <th>Nom</th>
+            <th>Marque</th>
+            <th>Catégorie</th>
+            <th>Description</th>
+            <th>Etat</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% set i = 1 %}
+        {% for article in articles %}
+            <tr>
+                <td class="bg-light text-primary">{{ i }}</td>
+                <td>{{ article.reference }}</td>
+                <td>{{ article.nom }}</td>
+                <td>{{ article.marque }}</td>
+                <td>{{ article.categorie }}</td>
+                <td>{{ article.description | raw }}</td>
+                <td>
+                    {% if article.etat == 0 %}<span class="text-success">Bon</span>{% elseif article.etat == 1 %}<span class="text-warning">En panne</span>{% else %}<span class="text-danger">HS</span>{% endif %}
+                </td>
+            </tr>
+            {% set i = i+1 %}
+        {% else %}
+            <tr>
+                <td colspan="8">Pas d'articles pour le moment</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="mt-2">
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            {% if is_granted("ROLE_USER") %}
+                <a class="btn btn-primary" href="{{ path('prets_edit', {'id': pret.id}) }}">Modifier</a>
+            {% endif %}
+        {% endif %}
+        <a class="btn btn-secondary" href="{{ path('home') }}">Retour à la liste des prêts</a>
+    </div>
+
+{% endblock %}

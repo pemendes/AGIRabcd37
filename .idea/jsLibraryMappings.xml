@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JavaScriptLibraryMappings">
+    <file url="PROJECT" libraries="{3ac892094f, bootstrap, bootstrap-datepicker, bootstrap-multiselect, datatables, jquery-3.5.1, jquery-validation, popper.js, sweetalert2}" />
+  </component>
+</project>

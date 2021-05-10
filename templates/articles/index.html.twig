@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Articles index{% endblock %}
+
+{% block body %}
+    <h2 class="text-center mb-4 mt-4">Tous les articles</h2>
+
+    <table id="table" class="table table-sm table-striped table-bordered display responsive nowrap mb-3" style="width:100%">
+        <thead>
+            <tr class="bg-primary text-light">
+                <th>#</th>
+                <th>Nom</th>
+                <th>Marque</th>
+                <th>Description</th>
+                <th>Date d'arrivee</th>
+                <th>Etat</th>
+                <th>Commentaire</th>
+                <th>En prêt ?</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% set i = 1 %}
+        {% for article in articles %}
+            <tr>
+                <td>{{ i }}</td>
+                <td>{{ article.nom }}</td>
+                <td>{{ article.marque }}</td>
+                <td>{{ article.description | raw}}</td>
+                <td>{{ article.dateArrivee ? article.dateArrivee|date('d-m-Y') : '' }}</td>
+                <td>
+                    {% if article.etat == 0 %}<span class="text-success">Bon</span>{% elseif article.etat == 1 %}<span class="text-warning">En panne</span>{% else %}<span class="text-danger">HS</span>{% endif %}
+                </td>
+                <td>{{ article.commentaire | raw}}</td>
+                <td class="text-primary text-center font-weight-bold">{{ article.pret ? 'X' : '' }}</td>
+            </tr>
+            {% set i = i + 1 %}
+        {% else %}
+            <tr>
+                <td colspan="9">Pas d'articles pour le moment !</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="row justify-content-center mt-5">
+        <form method="post" class="w-25">
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+            <h1 class="h3 mb-3 text-center">Se connecter</h1>
+            <div class="input-form">
+                <label class="text-primary mb-2 mt-2 font-weight-bold" for="inputUsername">Votre pseudo</label>
+                <input class="form-control" type="text" value="{{ last_username }}" name="username" id="inputUsername"
+                       placeholder="Votre pseudo" required autofocus/>
+            </div>
+            <div class="input-form">
+                <label class="text-primary mb-2 mt-3 font-weight-bold" for="inputPassword">Mot de passe</label>
+                <input class="form-control" type="password" name="password" id="inputPassword"
+                       placeholder="Votre mot de passe" required />
+            </div>
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+            <div class="submit-form">
+                <button class="btn btn-info mt-3 mb-1 btn-lg btn-block text-light font-weight-bold" type="submit">Connexion</button>
+            </div>
+            <div class="checkbox mt-2">
+                <label>
+                    <input class="mr-2" type="checkbox" name="_remember_me" checked>Se souvenir de moi
+                </label>
+            </div>
+        </form>
+    </div>
+    <div class="row justify-content-center mt-2"><a class="enregistrer ml-3" href="#">Mot de passe oublié?</a></div>
+{% endblock %}
+
+
+

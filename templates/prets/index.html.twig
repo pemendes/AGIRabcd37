@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Prets index{% endblock %}
+
+{% block body %}
+    <div class="row mb-3 mt-4 pl-3 pr-3">
+        <div class="col-md border border-secondary bg-white border-info">
+            <h5 class="mt-3"><span class="text-secondary">Prénom :</span> {{ stagiaire.prenom }}</h5>
+            <h5 class="mt-3"><span class="text-secondary">Nom :</span> {{ stagiaire.nom | upper }}</h5>
+            <h5 class="mt-3"><span class="text-secondary">Campus :</span> {{ stagiaire.campus }}</h5>
+        </div>
+        <div class="col-md border border-secondary bg-white border-info">
+            <h5 class="mt-3"><span class="text-secondary">Adresse :</span> {{ stagiaire.adresse }}</h5>
+            <h5 class="mt-3"><span class="text-secondary">Email :</span> {{ stagiaire.email }}</h5>
+            <h5 class="mt-3"><span class="text-secondary">Tél :</span> {{ stagiaire.telephone }}</h5>
+        </div>
+    </div>
+    <h4 class="text-center mt-2 mb-2 text-primary">Historique des prêts</h4>
+
+    <table id="table" class="table table-sm table-striped table-bordered display responsive nowrap mb-3" style="width:100%">
+        <thead>
+            <tr class="bg-primary text-light">
+                <th>Id</th>
+                <th>Date de début</th>
+                <th>Date de fin</th>
+                <th>En cours</th>
+                <th>Commentaire début</th>
+                <th>Commentaire de fin</th>
+                <th class="text-center">actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% set i = 1 %}
+        {% for pret in prets %}
+            <tr>
+                <td>{{ i }}</td>
+                <td>{{ pret.dateDebut ? pret.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ pret.dateFin ? pret.dateFin|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ pret.isReturned ? 'NON' : 'OUI' }}</td>
+                <td>{{ pret.commentaireDebut }}</td>
+                <td>{{ pret.commentaireFin }}</td>
+                <td class="text-center">
+                    <a class="btn btn-success" href="{{ path('prets_show', {'id': pret.id}) }}">Voir articles</a>
+                    {% if pret.isReturned == 0 %}
+                        <a class="btn btn-primary" href="{{ path('prets_edit', {'id': pret.id}) }}">Modifier</a>
+                        <a class="btn btn-secondary" href="{{ path('prets_return', {'id': pret.id}) }}">Retour</a>
+                    {% endif %}
+                    <a class="btn btn-danger" href="{{ path('prets_delete', {'id': pret.id}) }}">Supprimer</a>
+                </td>
+            </tr>
+            {% set i = i+1 %}
+        {% else %}
+            <tr>
+                <td colspan="8">Pas des prêts pour le moment</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

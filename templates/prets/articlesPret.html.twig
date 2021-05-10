@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Prets{% endblock %}
+
+{% block body %}
+    <h3>Prets</h3>
+
+    <table id="table" class="table table-sm table-striped table-bordered display responsive nowrap mb-3" style="width:100%">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nom</th>
+            <th>Marque</th>
+            <th>Description</th>
+            <th>Etat</th>
+            <th class="text-center">actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for article in articles %}
+            <tr>
+                <td>{{ article.id }}</td>
+                <td>{{ article.nom }}</td>
+                <td>{{ article.marque }}</td>
+                <td>{{ article.description }}</td>
+                <td>{{ article.etat ? 'Opérationnel' : 'En panne' }}</td>
+                <td class="text-center">
+                    <a class="btn btn-success" href="{{ path('articles_show', {'id': article.id}) }}">Voir</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">Pas d'articles pour le moment !</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a class="btn btn-secondary mt-2" href="{{ path('prets_index') }}">Retour</a>
+{% endblock %}

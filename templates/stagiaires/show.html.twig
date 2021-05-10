@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Stagiaires{% endblock %}
+
+{% block body %}
+    <div class="text-center">
+        <h1 class="title">Stagiaire</h1>
+        <div class="bg-detail text-left">
+            <div class="row">
+                <div class="col-md">
+                    <span class="font-weight-bold">Nom : </span>
+                    <p>{{ stagiaire.nom }}</p>
+                    <span class="font-weight-bold">Prénom : </span>
+                    <p>{{ stagiaire.prenom }}</p>
+                    <span class="font-weight-bold">Date de naissance : </span>
+                    <p>{{ stagiaire.dateNaissance ? stagiaire.dateNaissance|date('Y-m-d') : '' }}</p>
+                    <span class="font-weight-bold">Téléphone : </span>
+                    <p>{{ stagiaire.telePhone }}</p>
+                    <span class="font-weight-bold">Email : </span>
+                    <p>{{ stagiaire.email }}</p>
+                    <span class="font-weight-bold">Adresse : </span>
+                    <p>{{ stagiaire.adresse }}</p>
+                    <span class="font-weight-bold">Formation : </span>
+                    <p>{{ stagiaire.formation }}</p>
+                    <span class="font-weight-bold">Campus : </span>
+                    <p>{{ stagiaire.campus }}</p>
+                    <span class="font-weight-bold">Promotion : </span>
+                    <p>{{ stagiaire.promotion }}</p>
+                    <span class="font-weight-bold">Actif : </span>
+                    <p>{{ stagiaire.isActif ? 'OUI' : 'NON' }}</p>
+
+                    <div class="col-md">
+                        <i class="fas fa-user font-user" ></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a class="btn btn-primary" href="{{ path('stagiaires_index') }}">Retour</a>
+
+    <a class="btn btn-secondary" href="{{ path('stagiaires_edit', {'id': stagiaire.id}) }}">Modifier</a>
+
+    {{ include('stagiaires/_delete_form.html.twig') }}
+{% endblock %}

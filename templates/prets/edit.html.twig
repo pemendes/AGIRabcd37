@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Prets{% endblock %}
+
+{% block body %}
+    <h1 class="text-center mt-4 mb-3">Modifier un prêt</h1>
+
+    {{ include('prets/_form-edit.html.twig', {'button_label': 'Update'}) }}
+
+    <a class="btn btn-secondary mt-3" href="{{ path('prets_index') }}">Retour</a>
+
+    {{ include('prets/_delete_form.html.twig') }}
+{% endblock %}

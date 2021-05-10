@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau prêt{% endblock %}
+
+{% block body %}
+    <h1 class="text-center mt-4 mb-3">Créer un prêt</h1>
+
+    {{ include('prets/_form.html.twig') }}
+
+    <a class="btn btn-secondary" href="{{ path('prets_index') }}">Retour</a>
+
+{% endblock %}
+{% block javascripts %}
+    <script>
+        // Material Select Initialization
+        $(document).ready(function() {
+            $('.mdb-select').materialSelect();
+        });
+    </script>
+{% endblock %}
